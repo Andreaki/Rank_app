@@ -1,4 +1,4 @@
-class NamesController < ApplicationController
+class ApplicationController < ActionController::Base
   # GET /names
   # GET /names.json
   def index
@@ -88,4 +88,5 @@ class NamesController < ApplicationController
      @name=Name.find(params[:id])
      @name.update_attribute(:votesnumber,@name.votesnumber-1)
   end
-end
+end 
+

@@ -2,7 +2,7 @@ class NamesController < ApplicationController
   # GET /names
   # GET /names.json
   def index
-    @names = Name.all
+    @names = Name.all(:order => 'votesnumber DESC')
     @name=Name.new
     respond_to do |format|
       format.html # index.html.erb
@@ -25,7 +25,6 @@ class NamesController < ApplicationController
   # GET /names/new.json
   def new
     @name = Name.new
-    @name.votesnumber=0
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @name }

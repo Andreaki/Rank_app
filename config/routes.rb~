@@ -1,5 +1,6 @@
 RankApp::Application.routes.draw do
   
+    root :to => 'names#index'
    resources :names 
    get "names/like" => 'names#like'
    get "names/like" => 'names#dislike'
