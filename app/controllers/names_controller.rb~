@@ -85,7 +85,7 @@ class NamesController < ApplicationController
        puts "You already voted"
         @name=Name.find(params[:id])
        @name.update_attribute(:votesnumber,@name.votesnumber)
-       redirect_to names_path, :notice => "Post has been saved successfully."
+       redirect_to root_url, :notice => "Post has been saved successfully."
     else
      @name=Name.find(params[:id])
        @new_vote=VoteRecord.new
@@ -93,7 +93,7 @@ class NamesController < ApplicationController
      @new_vote.ip_adress=request.remote_ip
       @name.update_attribute(:votesnumber,@name.votesnumber+1)
      @new_vote.save
-     redirect_to names_path, :notice => ""
+     redirect_to root_url, :notice => ""
   end
 end
 
@@ -102,14 +102,14 @@ end
       puts "You already voted"
      @name=Name.find(params[:id])
        @name.update_attribute(:votesnumber,@name.votesnumber)
-       redirect_to names_path, :notice => ""
+       redirect_to root_url, :notice => ""
    else
      @new_vote=VoteRecord.new
      @new_vote.name_id=@name.id
      @new_vote.ip_adress=request.remote_ip
      @name.update_attribute(:votesnumber,@name.votesnumber-1)
      @new_vote.save
-     redirect_to names_path, :notice => ""
+     redirect_to root_url, :notice => ""
   end
  end
 end
