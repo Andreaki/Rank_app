@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  ip_adress: 1
+  name_id: 1
+  is_like: false
+
+two:
+  ip_adress: 1
+  name_id: 1
+  is_like: false

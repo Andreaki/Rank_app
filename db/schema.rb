@@ -11,13 +11,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130109220051) do
+ActiveRecord::Schema.define(:version => 20130203144305) do
 
   create_table "names", :force => true do |t|
     t.string   "title"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.integer  "votesnumber"
+  end
+
+  create_table "vote_records", :force => true do |t|
+    t.integer  "ip_adress"
+    t.integer  "name_id"
+    t.boolean  "is_like"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "votes", :force => true do |t|

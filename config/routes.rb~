@@ -1,9 +1,12 @@
 RankApp::Application.routes.draw do
   
+  resources :vote_records, :controller => 'NamesController'
+  resources :Voterecord
+
     root :to => 'names#index'
    resources :names 
    get "names/like" => 'names#like'
-   get "names/like" => 'names#dislike'
+   get "names/dislike" => 'names#dislike'
    put  "names/:id/like" =>'names#like'
    put  "names/:id/dislike" =>'names#dislike'
 end
@@ -64,4 +67,5 @@ end
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
+
 

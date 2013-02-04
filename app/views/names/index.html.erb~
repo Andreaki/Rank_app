@@ -1,0 +1,43 @@
+
+<h1>Band Names ranking </h1>
+<br\>
+
+<table style="font-size:15px">
+  <tr>
+    <th> Vote your favorite name! </th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th>Votes</th>
+  </tr>
+ <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @names.each do |name| %>
+  <tr>
+    <td><%= name.title %></td>
+    <td><%= button_to 'Like',  {:controller => "names", :action => "like", :id => name.id}, :method => :put %></td>
+    <td><%= button_to 'Dislike',{:controller => "names", :action =>"dislike"}, :method => :put %></td>
+    <td></td>
+    <td><%=name.votesnumber %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= form_for(@name) do |f| %>
+<div class="field">
+    <%= "Add your Band name:" %><br />
+    <%= f.text_field :title %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+

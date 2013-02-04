@@ -1,7 +1,8 @@
 class Name < ActiveRecord::Base
   attr_accessible :title
- 
-  validates :title, uniqueness: true, presence: true, :length => {:maximum => 30}
-  validates :title, :format => { :with => /(?!^(http|https):\/\/|[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6}(:[0-9]{1,5})?(\/.*)?$)ix/}
+  has_many :vote_record
+  validates :title, :uniqueness => {:case_sensitive => false}, presence: true, :length => {:maximum => 30}
+  validates :title, :format => { :with => /^[a-z0-9\.]+$/i}
+  
 end
 

@@ -1,0 +1,27 @@
+<h1>Listing vote_records</h1>
+
+<table>
+  <tr>
+    <th>Ip adress</th>
+    <th>Name</th>
+    <th>Is like</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @vote_records.each do |vote_record| %>
+  <tr>
+    <td><%= vote_record.ip_adress %></td>
+    <td><%= vote_record.name_id %></td>
+    <td><%= vote_record.is_like %></td>
+    <td><%= link_to 'Show', vote_record %></td>
+    <td><%= link_to 'Edit', edit_vote_record_path(vote_record) %></td>
+    <td><%= link_to 'Destroy', vote_record, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Vote record', new_vote_record_path %>
