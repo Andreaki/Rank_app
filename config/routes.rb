@@ -1,14 +1,14 @@
 RankApp::Application.routes.draw do
   
   resources :vote_records, :controller => 'NamesController'
-  resources :Voterecord
+  resources :Voterecord, :only => [:new, :create]
 
-    root :to => 'names#index'
-   resources :names 
-   get "names/like" => 'names#like'
-   get "names/dislike" => 'names#dislike'
-   put  "names/:id/like" =>'names#like'
-   put  "names/:id/dislike" =>'names#dislike'
+  root :to => 'names#index'
+  resources :names, :only => [:new, :create, :show]
+  get "names/like" => 'names#like'
+  get "names/dislike" => 'names#dislike'
+  put  "names/:id/like" =>'names#like'
+  put  "names/:id/dislike" =>'names#dislike'
 end
 
   # The priority is based upon order of creation:
