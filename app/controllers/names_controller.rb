@@ -81,35 +81,56 @@ class NamesController < ApplicationController
   end
 
   def like
-    if  VoteRecord.find_by_ip_adress(request.remote_ip)
-       puts "You already voted"
-        @name=Name.find(params[:id])
-       @name.update_attribute(:votesnumber,@name.votesnumber)
-       redirect_to root_url, :notice => "Post has been saved successfully."
+    # Check if a VoteRecord already exists for this ip address, this name, and is a "like",
+    # and ignore this vote if so.
+    if  VoteRecord.exists?(ip_adress: request.remote_ip, name_id: params[:id], is_like: true)
+      # puts "You already voted"
+      # @name=Name.find(params[:id])
+      # @name.update_attribute(:votesnumber,@name.votesnumber)
+      redirect_to root_url, :notice => "Error: You already voted."
     else
-     @name=Name.find(params[:id])
-       @new_vote=VoteRecord.new
-     @new_vote.name_id=@name.id
-     @new_vote.ip_adress=request.remote_ip
+      # In the event that a VoteRecord already exists for this name and ip address, use that one.
+      @new_vote=VoteRecord.find(:first, conditions: {ip_adress: request.remote_ip, name_id: params[:id]}) ||
+        # Otherwise create a new record
+        VoteRecord.new(ip_adress: request.remote_ip, name_id: params[:id])
+      
+      # If the vote didn't exist, and was therefore neutral, make it a like. Otherwise make it neutral.
+      @new_vote.is_like=@new_vote.is_like.nil? ? true : false
+      # @new_vote.name_id=@name.id
+      # @new_vote.ip_adress=request.remote_ip
+      @new_vote.save
+
+      @name=Name.find(params[:id])
       @name.update_attribute(:votesnumber,@name.votesnumber+1)
-     @new_vote.save
-     redirect_to root_url, :notice => ""
+
+      redirect_to root_url, :notice => "Voted up #{@name.title}."
+    end
   end
-end
 
   def dislike
-     if  VoteRecord.find_by_ip_adress(request.remote_ip)
-      puts "You already voted"
-     @name=Name.find(params[:id])
-       @name.update_attribute(:votesnumber,@name.votesnumber)
-       redirect_to root_url, :notice => ""
-   else
-     @new_vote=VoteRecord.new
-     @new_vote.name_id=@name.id
-     @new_vote.ip_adress=request.remote_ip
-     @name.update_attribute(:votesnumber,@name.votesnumber-1)
-     @new_vote.save
-     redirect_to root_url, :notice => ""
+    # Check if a VoteRecord already exists for this ip address, this name, and is a "dislike",
+    # and ignore this vote if so.
+    if  VoteRecord.exists?(ip_adress: request.remote_ip, name_id: params[:id], is_like: false)
+      # puts "You already voted"
+      # @name=Name.find(params[:id])
+      # @name.update_attribute(:votesnumber,@name.votesnumber)
+      redirect_to root_url, :notice => "Error: You already voted."
+    else
+      # In the event that a VoteRecord already exists for this name and ip address, use that one.
+      @new_vote= VoteRecord.find(:first, conditions: {ip_adress: request.remote_ip, name_id: params[:id]}) ||
+        # Otherwise create a new record
+        VoteRecord.new(ip_adress: request.remote_ip, name_id: params[:id])
+        
+      # If the vote didn't exist, and was therefore neutral, make it a dislike. Otherwise make it neutral.
+      @new_vote.is_like= @new_vote.is_like.nil? ? false : nil
+      # @new_vote.name_id=@name.id
+      # @new_vote.ip_adress=request.remote_ip
+      @new_vote.save
+
+      @name=Name.find(params[:id])
+      @name.update_attribute(:votesnumber,@name.votesnumber-1)
+
+      redirect_to root_url, :notice => "Voted down #{@name.title}."
+    end
   end
- end
 end
