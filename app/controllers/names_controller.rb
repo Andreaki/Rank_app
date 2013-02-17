@@ -2,12 +2,19 @@ class NamesController < ApplicationController
   # GET /names
   # GET /names.json
   def index
-    @names = Name.all(:order => 'votesnumber DESC')
+    @names = Name.all(:order => 'votesnumber DESC',
+		      :limit => 10
+			)
+    @others = Name.all(:order => 'created_at DESC',
+		      :limit => 10
+			)
+    @records = Name.all
     @name=Name.new
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @names }
     end
+
   end
 
   # GET /names/1

@@ -1,5 +1,7 @@
-
-<h1>Band Names ranking </h1>
+<table>
+<tr>
+<td>
+<h1>Top Rated </h1>
 <br\>
 
 <table style="font-size:15px">
@@ -28,9 +30,46 @@
   </tr>
 <% end %>
 </table>
+</td>
+<td>
+
+<h1>Newest submissions </h1>
+<br\>
+
+<table style="font-size:15px">
+  <tr>
+    <th> Vote your favorite name! </th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th>Votes</th>
+  </tr>
+ <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @others.each do |var| %>
+  <tr>
+    <td><%= var.title %></td>
+    <td><%= button_to 'Like',  {:controller => "names", :action => "like", :id => var.id}, :method => :put %></td>
+    <td><%= button_to 'Dislike',{:controller => "names", :action =>"dislike", :id => var.id}, :method => :put %></td>
+    <td></td>
+    <td><%= var.votesnumber %></td>
+  </tr>
+<% end %>
+</table>
+</td>
+</tr>
+</table>
 
 <br />
-
+<a href="names/records.html.erb">All band names </a>
+<br />
+<br/>
 <%= form_for(@name) do |f| %>
 <div class="field">
     <%= "Add your Band name:" %><br />
