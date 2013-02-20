@@ -1,0 +1,33 @@
+<h1>Top Rated </h1>
+<br\>
+
+<table style="font-size:15px">
+  <tr>
+    <th> Vote your favorite name! </th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th>Votes</th>
+  </tr>
+ <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+<% @records.each do |name| %>
+  <tr>
+    <td><%= name.title %></td>
+    <td><%= button_to 'Like',  {:controller => "names", :action => "like", :id => name.id}, :method => :put %></td>
+    <td><%= button_to 'Dislike',{:controller => "names", :action =>"dislike", :id => name.id}, :method => :put %></td>
+    <td></td>
+    <td><%=name.votesnumber %></td>
+  </tr>
+<% end %>
+
+
+</table>
+</br>
+</br>
+<%= link_to("Back",root_url) %>

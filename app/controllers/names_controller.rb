@@ -2,20 +2,28 @@ class NamesController < ApplicationController
   # GET /names
   # GET /names.json
   def index
+    @records = Name.all
     @names = Name.all(:order => 'votesnumber DESC',
 		      :limit => 10
 			)
     @others = Name.all(:order => 'created_at DESC',
 		      :limit => 10
 			)
-    @records = Name.all
+
     @name=Name.new
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @names }
     end
-
   end
+
+def showall
+	 @records = Name.all
+#      respond_to do |format|
+ #     format.html # index.html.erb
+  #    format.json { render json: @names }
+   # end
+end
 
   # GET /names/1
   # GET /names/1.json
@@ -110,7 +118,7 @@ class NamesController < ApplicationController
       @name=Name.find(params[:id])
       @name.update_attribute(:votesnumber,@name.votesnumber+1)
 
-      redirect_to root_url, :notice => "Voted up #{@name.title}."
+      redirect_to (:back), :notice => "Voted up #{@name.title}."
     end
   end
 
@@ -137,7 +145,7 @@ class NamesController < ApplicationController
       @name=Name.find(params[:id])
       @name.update_attribute(:votesnumber,@name.votesnumber-1)
 
-      redirect_to root_url, :notice => "Voted down #{@name.title}."
+      redirect_to (:back), :notice => "Voted down #{@name.title}."
     end
   end
 end

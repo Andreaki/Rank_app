@@ -1,3 +1,7 @@
+<html>
+<header>
+<%= link_to("Signup","users/new") %>
+<header>
 <table>
 <tr>
 <td>
@@ -38,7 +42,7 @@
 
 <table style="font-size:15px">
   <tr>
-    <th> Vote your favorite name! </th>
+    <th></th>
     <th></th>
     <th></th>
     <th></th>
@@ -67,7 +71,7 @@
 </table>
 
 <br />
-<a href="names/records.html.erb">All band names </a>
+<%= link_to("All records","/showall") %>
 <br />
 <br/>
 <%= form_for(@name) do |f| %>
@@ -80,3 +84,4 @@
   </div>
 <% end %>
 
+</html>
