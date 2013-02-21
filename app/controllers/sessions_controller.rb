@@ -1,7 +1,6 @@
 class SessionsController < ApplicationController
   def login
-	# Login Form
-    
+	# Login Form  
   end
   def login_attempt
 	authorized_user=User.authenticate(params[:name],params[:password])

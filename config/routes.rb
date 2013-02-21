@@ -2,10 +2,10 @@ RankApp::Application.routes.draw do
   
   get "users/new"
 
- # get "sessions#login"
+ get "sessions/login"
 
   resources :users
-
+   resources :sessions
   resources :vote_records, :controller => 'NamesController'
   resources :Voterecord, :only => [:new, :create]
 
@@ -16,12 +16,12 @@ RankApp::Application.routes.draw do
   put  "names/:id/like" =>'names#like'
   put  "names/:id/dislike" =>'names#dislike'
   get "/showall" => 'names#showall'
-  get "/login" => 'sessions#login_attempt'
+  get "/login" => 'sessions#login'
   get "/new" => 'users#new'
   put "/new" => 'users#new'
   put "/new" => 'users#create'
-  put "/login" => 'sessions#login_attempt'
-  post "/login" => 'sessions#login_attempt'
+  put "/login" => 'sessions#login'
+  post "/login" => 'sessions#login'
 end
 
   # The priority is based upon order of creation:
